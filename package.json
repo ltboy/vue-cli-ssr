@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "serve": "vue-cli-service server",
+    "dev": "cross-env NODE_ENV=development node server/index.js",
+    "build": "rimraf dist && npm run build:client && npm run build:server",
+    "build:client": "cross-env NODE_ENV=production webpack --config build/webpack.client.config.js --progress --hide-modules",
+    "build:server": "cross-env NODE_ENV=production webpack --config build/webpack.server.config.js --progress --hide-modules",
+    "lint": "vue-cli-service lint",
+    "commit": "node script/pre-commit.js"
   },
   "dependencies": {
     "register-service-worker": "^1.5.2",
@@ -20,10 +24,18 @@
     "@vue/cli-service": "^3.2.0",
     "@vue/eslint-config-prettier": "^4.0.0",
     "babel-eslint": "^10.0.1",
+    "cross-env": "^5.2.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0-0",
+    "inquirer": "^6.2.1",
+    "koa": "^2.6.2",
+    "koa-compress": "^3.0.0",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
-    "vue-template-compiler": "^2.5.17"
+    "shelljs": "^0.8.3",
+    "vue-server-renderer": "^2.5.21",
+    "vue-template-compiler": "^2.5.17",
+    "webpack-merge": "^4.1.5",
+    "webpack-node-externals": "^1.7.2"
   }
 }
